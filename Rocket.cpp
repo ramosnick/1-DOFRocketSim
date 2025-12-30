@@ -12,6 +12,14 @@ double Rocket::getMaxThrust() {
     return this->maxThrust;
 }
 
+double Rocket::getCurrentThrust() {
+    return this->currentThrust;
+}
+
+double Rocket::getCurrentYForce() {
+    return this->currentYForce;
+}
+
 double Rocket::getFuel() {
     return this->fuel;
 }
@@ -31,17 +39,33 @@ double Rocket::getVelocity() {
 //Flight Data Fxns//
 /*Output file will be opened in main, columns will be read in outside of control loop, data will be read in 
 within saveData function, file will be closed in main, outside of control loop*/
-void Rocket::saveData(std::ofstream outputFile) {
+void Rocket::saveData(std::ofstream& outputFile) {
 
     outputFile << this->time << ','
                << getHeight() << ','
                << getVelocity() << ','
-               << this->currentAccelerration << ','
+               << this->currentAcceleration << ','
                << this->currentThrust << ','
                << getMass() <<std::endl;
     /*Will update to either access all variable directly or will create getters for all of them to use instead,
     haven't decided which to do yet, leaning towards direct access for speed...*/
 
+}
+
+void Rocket::updateCurrentThrust(double newThrust) {
+    this->currentThrust = newThrust;
+}
+
+void Rocket::updateCurrentYForce(double newYForce) {
+    this->currentYForce = newYForce;
+}
+
+void Rocket::updateCurrentAcc(double newAcc) {
+    this->currentAcceleration = newAcc;
+}
+
+void Rocket::updateCurrentVelocity(double newVelocity) {
+    this->currentVelocity = newVelocity;
 }
 
 void Rocket::updateFuel(double dt, double rate) {

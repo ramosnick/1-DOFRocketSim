@@ -12,26 +12,33 @@ class Rocket {
 
     public:
     float time;
-    double height; //Starts at 0, updated by physics engine
     double currentThrust;
-    double currentAccelerration;
+    double currentYForce;
+    double currentAcceleration;
     double currentVelocity;
+    double height; //Starts at 0, updated by physics engine
 
     //Constructor
     Rocket(double maxThrust, double fuel, double initialMass);
 
     //Helpers
     double getMaxThrust();
+    double getCurrentThrust();
+    double getCurrentYForce();
     double getFuel();
     double getMass();
-    double getHeight();
     double getVelocity();
+    double getHeight();
 
     //Flight Data Fxns//
-    void saveData(std::ofstream outputFile);
+    void saveData(std::ofstream& outputFile);
 
     /*All functions below this point may be moved to Control Unit class havent decided yet...*/
 
+    void updateCurrentThrust(double newThrust); //Sets thrust output
+    void updateCurrentYForce(double newYForce); //Stores current Y force in rocket object
+    void updateCurrentAcc(double newAcc);
+    void updateCurrentVelocity(double newVelocity);
     void updateFuel(double dt, double rate); //Will be called by physics engine with the time between calls being dt
     void updateMass(double massLost); //Will only be called in updateFuel with newly updated fuel as argument
     void updateVelocity(double newVelocity);

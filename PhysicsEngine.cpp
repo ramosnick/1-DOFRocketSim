@@ -6,29 +6,35 @@ void PhysicsEngine::incrementTime() {
     this->time += dt;
 }
 
-double PhysicsEngine::calculateForce(double currentThrust, Rocket rocket) {
+double PhysicsEngine::calculateForce(Rocket& rocket) {
 
     double downForce = rocket.getMass() * gravity;
-    double upForce = rocket.getMaxThrust(); //Only using maxThrust for preliminary testing
+    double upForce = rocket.getCurrentThrust();
 
+    rocket.updateCurrentYForce(upForce - downForce);
     return upForce - downForce;
 
 }
 
-double PhysicsEngine::calcAcc(Rocket rocket, double currentYForce) {
+double PhysicsEngine::calcAcc(Rocket& rocket) {
 
-    return currentYForce / rocket.getMass();
+    double newAcc = rocket.getCurrentYForce() / rocket.getMass();
+    rocket.updateCurrentAcc(newAcc);
+    return newAcc;
 
 }
 
-double PhysicsEngine::calcVelocity(Rocket rocket, double accelerration) {
+double PhysicsEngine::calcVelocity(Rocket& rocket) {
     
-    return rocket.getVelocity() + (accelerration * dt);
-
+    double newVelocity = rocket.getVelocity() + (rocket.currentAcceleration * dt);
+    rocket.updateCurrentVelocity(newVelocity);
+    return newVelocity;
 }
 
-void PhysicsEngine::calcNewHeight(Rocket rocket, double currentYForce) {
+void PhysicsEngine::calcNewHeight(Rocket& rocket) {
 
-    rocket.updateHeight(rocket.getHeight() + (rocket.getVelocity() * dt));
+    double newHeight = rocket.getHeight() + (rocket.getVelocity() * dt);
+
+    rocket.updateHeight(newHeight);
 
 }

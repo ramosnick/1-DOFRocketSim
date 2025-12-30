@@ -14,10 +14,10 @@ class PhysicsEngine {
     //Constructor
     PhysicsEngine();
     void incrementTime();
-    double calculateForce(double currentThrust, Rocket rocket);
-    double calcAcc(Rocket rocket, double currentYForce);
-    double calcVelocity(Rocket rocket, double accelerration);
-    void calcNewHeight(Rocket rocket, double currentYForce); //Updates height variable in rocket object
+    double calculateForce(Rocket& rocket);
+    double calcAcc(Rocket& rocket);
+    double calcVelocity(Rocket& rocket);
+    void calcNewHeight(Rocket& rocket); //Updates height variable in rocket object
     
 };
 
